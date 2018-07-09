@@ -1,0 +1,66 @@
+{
+  "name": "bofed",
+  "version": "0.0.1",
+  "main": "public/bofed/bundle.js",
+  "scripts": {
+    "start": "babel-node node_modules/.bin/webpack-serve --config ./webpack/webpack.dev.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0-beta.51",
+    "@babel/node": "7.0.0-beta.51",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.51",
+    "@babel/plugin-transform-runtime": "7.0.0-beta.51",
+    "@babel/preset-env": "7.0.0-beta.51",
+    "@babel/preset-flow": "7.0.0-beta.51",
+    "@babel/preset-react": "7.0.0-beta.51",
+    "@babel/preset-stage-0": "7.0.0-beta.51",
+    "@babel/runtime": "^7.0.0-beta.51",
+    "autoprefixer": "8.5.0",
+    "babel-loader": "8.0.0-beta.3",
+    "babel-plugin-add-react-displayname": "0.0.5",
+    "babel-plugin-dev-expression": "0.2.1",
+    "babel-plugin-jsx-control-statements": "3.2.8",
+    "babel-plugin-module-resolver": "3.1.1",
+    "babel-plugin-react-css-modules": "3.4.0",
+    "css-loader": "0.28.11",
+    "debug": "3.1.0",
+    "dotenv-webpack": "1.5.5",
+    "file-loader": "1.1.11",
+    "html-webpack-harddisk-plugin": "0.2.0",
+    "html-webpack-plugin": "3.2.0",
+    "invariant": "2.2.4",
+    "npm-install-webpack-plugin": "^4.0.5",
+    "postcss": "6.0.22",
+    "postcss-loader": "2.1.5",
+    "react-hot-loader": "4.2.0",
+    "react-svg-loader": "2.1.0",
+    "style-loader": "0.21.0",
+    "url-loader": "1.0.1",
+    "warning": "3.0.0",
+    "webpack": "^4.14.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-serve": "^1.0.4",
+    "write-file-webpack-plugin": "4.3.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dayjs": "^1.6.5",
+    "dotenv": "5.0.1",
+    "history": "^4.7.2",
+    "is-empty": "^1.2.0",
+    "kill-port": "^1.2.0",
+    "koa-static": "^5.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-fast-compare": "^2.0.0",
+    "react-router-dom": "4.2.2",
+    "storage-changed": "^1.0.2"
+  },
+  "__config": {
+    "variables": {
+      "appName": "core",
+      "appTitle": "Ops Portal"
+    }
+  }
+}

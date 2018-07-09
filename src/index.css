@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: 'Roboto', sans-serif;
+  --copartBlue: rgb(29, 90, 185);
+  --white: rgb(255, 255, 255);
+  --gray: rgb(241, 241, 241);
+  --darkGray: rgb(222, 222, 222);
+  --darkBlue: rgb(58, 68, 84);
+  --black: rgb(23, 23, 23);
+}
+
+html, body, body>div {
+  height: 100vh;
+}
+
+/* NOTE: These styles will be unnecessary when g2-ops-components provides all the components needed. */
+
+input, textarea {
+  font-size: 16px !important;
+}
+
+textarea {
+  padding: 6px 0 0 5px !important;
+  color: #000 !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a, button {
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+[ignore]
+.*/node_modules/.*
+.*/__tests__/.*
+[include]
+
+[libs]
+flow-typed
+
+[lints]
+all=warn
+
+[options]
+module.file_ext=.js
+module.file_ext=.json
+module.file_ext=.css
+module.file_ext=.scss
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+module.name_mapper='^components' ->'<PROJECT_ROOT>/src/components'
+module.name_mapper='^views' ->'<PROJECT_ROOT>/src/views'
+module.name_mapper='^actions' ->'<PROJECT_ROOT>/src/common/actions'
+module.name_mapper='^constants' ->'<PROJECT_ROOT>/src/common/constants'
+module.name_mapper='^utils' ->'<PROJECT_ROOT>/src/common/utils'
+module.name_mapper='^routes' ->'<PROJECT_ROOT>/src/common/routes'
+module.name_mapper='^reducers' ->'<PROJECT_ROOT>/src/common/reducers'
+module.name_mapper='^middleware' ->'<PROJECT_ROOT>/src/common/middleware'
+module.name_mapper='^store' ->'<PROJECT_ROOT>/src/common/store'
+module.name_mapper='^types/\(.*\)$' -> '<PROJECT_ROOT>/types/\1.js'
