@@ -1,0 +1,15 @@
+.Splash {
+  display: flex;
+  flex-direction: column;
+  padding: 10vh 5vw;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.SignUp {
+  display: flex;
+  /* justify-content: center; */
+}

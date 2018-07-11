@@ -33,7 +33,6 @@ module.exports = (() => {
     serve: {
       content: fromRoot('public'),
       disableHostCheck: true,
-      compress: true,
       port: 4000,
       dev: {
         publicPath: '/'
@@ -46,6 +45,7 @@ module.exports = (() => {
 
     module: {
       rules: [
+        loaders.noCompileCssLoader,
         loaders.javaScriptLoader,
         loaders.cssLoader,
         loaders.fontLoader,

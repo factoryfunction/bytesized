@@ -1,0 +1,20 @@
+.SignUpForm {
+    max-width: 624px;
+}
+
+.form {
+    margin-top: 24px;
+}
+
+.passwordRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    margin-bottom: 12px;
+}
+
+.passwordRow > div {
+    max-width: calc(50% - 12px);
+}

@@ -4,6 +4,22 @@
   margin: 0;
 }
 
-html, body, #root {
+pre {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'ibm-plex-sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.codeBlokk {
+  font-family: 'BLOKK';
+}
+
+html,
+body,
+#root {
   heiht: 100vh;
+  background: var(--white);
+  color: var(--black);
 }

@@ -10,7 +10,7 @@ export const javaScriptLoader = {
 
 export const cssLoader = {
   test: /\.(pcss|css)$/,
-  exclude: /\.(scss)$/,
+  exclude: /(codemirror)/,
   use: [
     {
       loader: 'style-loader',
@@ -29,6 +29,19 @@ export const cssLoader = {
       options: {
         sourceMap: true
       }
+    }
+  ]
+}
+
+export const noCompileCssLoader = {
+  test: /no\.(css)$/,
+  use: [
+    {
+      loader: 'style-loader',
+      options: {}
+    },
+    {
+      loader: 'css-loader'
     }
   ]
 }
