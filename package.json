@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "main": "public/bofed/bundle.js",
   "scripts": {
-    "start": "kill-port 4000 && babel-node node_modules/.bin/webpack-serve --config ./webpack/webpack.dev.js",
-    "test": "jest"
+    "start.dev": "kill-port 4000 && babel-node node_modules/.bin/webpack-serve --config ./webpack/webpack.dev.js",
+    "test": "jest",
+    "build": "babel-node node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
+    "start": "babel-node node_modules/.bin/webpack-serve --config ./webpack/webpack.dev.js"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.51",

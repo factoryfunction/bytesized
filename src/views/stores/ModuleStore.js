@@ -16,6 +16,10 @@ export default class ModuleStore extends ComponentStore {
     )
   }
 
+  resetSandbox = () => {
+    this.component.iFrame.current.contentWindow.location.reload();
+  }
+
   @action
   clearMessages = () => {
     this.messages = []

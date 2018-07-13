@@ -43,7 +43,7 @@ export default class Module extends React.Component {
   }
 
   render() {
-    const { props, store } = this
+    const { store } = this
 
     return (
       <div styleName="Module">
@@ -53,7 +53,8 @@ export default class Module extends React.Component {
           onChange={store.setEditorContent}
           content={store.editorContent}
         />
-        <Button onClick={store.eval}>Run Code</Button>
+        <Button onClick={store.eval}>Run</Button>{' '}
+        <Button onClick={store.resetSandbox}>Stop</Button>
         <CodeSandbox iFrame={this.iFrame} />
         <Console messages={store.messages} />
       </div>
@@ -65,8 +66,6 @@ export default class Module extends React.Component {
 class Console extends React.Component {
   render() {
     const { props } = this
-
-    // console.log({ props })
     return (
       <section styleName="Console">
         <h3>console</h3>
@@ -90,7 +89,6 @@ class Console extends React.Component {
 class Log extends React.Component {
   render() {
     const { props } = this
-    // console.log('log', { props })
     return (
       <pre styleName={`Log pre ${props.type}`}>
         <code>
@@ -124,3 +122,22 @@ class CodeSandbox extends React.Component {
 // console.log('yolo')
 // console.warn('uh oh')
 // console.error('oh fuck')
+
+
+// write shit here
+// console.error('fuck it')
+
+// const tick = (() => {
+// 	let t = 0
+  
+//   return () => (t++)
+// })()
+
+// const foo = new Promise((resolve, reject) => {
+// 	let interval = setInterval(() => {
+//     let t = tick()
+//   	console.warn('tick tock')
+    
+//     t > 10 && clearInterval(interval)
+//   }, 2000)
+// })
