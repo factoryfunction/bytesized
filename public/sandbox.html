@@ -11,28 +11,33 @@
             const fromSandbox = true
             const logs = []
 
-            const postLog = (type) => (messages) => {
-                event.source.postMessage({ fromSandbox, type: 'stdout', data: { logType: type, messages, timeStamp: new Date() } }, event.origin)
-            }
+            // const postLog = (type) => (messages) => {
+            //     event.source.postMessage({ fromSandbox, type: 'stdout', data: { logType: type, messages, timeStamp: new Date() } }, event.origin)
+            // }
 
-            const log = console.log
-            console.log = (...messages) => {
-                postLog('log')(messages)
-            }
+            // const log = console.log
+            // console.log = (...messages) => {
+            //     postLog('log')(messages)
+            // }
 
-            const warn = console.warn
-            console.warn = (...messages) => {
-                postLog('warn')(messages)
-            }
+            // const warn = console.warn
+            // console.warn = (...messages) => {
+            //     postLog('warn')(messages)
+            // }
 
-            const error = console.error
-            console.error = (...messages) => {
-                postLog('error')(messages)
-            }
+            // const error = console.error
+            // console.error = (...messages) => {
+            //     postLog('error')(messages)
+            // }
+
+            window.Hook(window.console, (log) => {
+                event.source.postMessage({ source: 'sandbox', type: 'stdout', data: { log: window.Decode(log), timeStamp: new Date() } }, event.origin)
+            })
+
 
             const f = new Function(event.data.eval)
-
-            event.source.postMessage({ fromSandbox, type: 'done', data: { type: 'done', final: f(), timeStamp: new Date() } }, event.origin)
+            f()
+            // event.source.postMessage({ fromSandbox, type: 'done', data: { type: 'done', final: f(), timeStamp: new Date() } }, event.origin)
         }
 
         window.addEventListener("message", handleMessage, false);

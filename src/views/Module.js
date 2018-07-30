@@ -1,40 +1,39 @@
 import * as React from 'react'
-import { observable, action, computed } from 'mobx'
+import { toJS, autorun } from 'mobx'
+import { observable, when, action, computed } from 'mobx'
 import { observer } from 'mobx-react'
-import TimeAgo from 'react-timeago'
+// import TimeAgo from 'react-timeago'
+import SplitPane from 'react-split-pane'
+import { Console } from 'console-feed'
+import { Hook, Decode } from 'console-feed'
 
 import ModuleStore from './stores/ModuleStore'
+import CodeEditor from '#components/CodeEditor'
+import Button from '#components/Button'
 
 import {
   handleSandboxMessages,
   cancelSandboxMessageHandler
 } from './utilities/sandboxMessaging'
 
-import CodeEditor from '#components/CodeEditor'
-import Button from '#components/Button'
-
-// import ComponentStore from '#utilities/ComponentStore'
-// import Input from '#components/Input'
-// import Bold from '#components/Bold'
-
 import './styles/Module.css'
+
+const DEFAULT_CONTENT =
+  "const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';\n\nconst getUsers = fetch(ENDPOINT).then(res => res.json())\n\ngetUsers.then(users => {\n\tconsole.log('got the users')\n  console.log(users)\n})\n"
 
 @observer
 export default class Module extends React.Component {
-  store = new ModuleStore(this)
+  @observable originalEditorContent: string = DEFAULT_CONTENT
+  @observable editorContent: string = DEFAULT_CONTENT
+  @observable sandboxReadyState: string = false
+  @observable logs = []
+
   iFrame = React.createRef()
   messageHandler = null
 
   componentWillMount() {
     this.messageHandler = handleSandboxMessages((data) => {
-      console.log('message from sandbox:', data)
-      data.type === 'stdout' && this.store.pushMessage(data.data)
-      data.type === 'done' &&
-        this.store.pushMessage({
-          logType: 'log',
-          messages: ['DONE'],
-          timeStamp: new Date()
-        })
+      this.pushMessage(data.data)
     })
   }
 
@@ -42,69 +41,116 @@ export default class Module extends React.Component {
     cancelSandboxMessageHandler(this.messageHandler)
   }
 
-  render() {
-    const { store } = this
+  /**
+   * When the play button is pressed.
+   */
 
+  @action
+  startSandbox = () => {
+    this.sandboxReadyState = true
+  }
+
+  /**
+   * When the reset button is pressed.
+   */
+
+  @action
+  resetEditor = () => {
+    this.editorContent = this.originalEditorContent
+  }
+
+  /**
+   * When the stop button is pressed.
+   */
+
+  @action
+  stopSandbox = () => {
+    this.sandboxReadyState = false
+  }
+
+  /**
+   * When the clear button is pressed or when the code is executed.
+   */
+
+  @action
+  clearLogs = () => {
+    this.logs = []
+  }
+
+  /**
+   * When the user changes the editor content.
+   */
+
+  @action
+  setEditorContent = (value) => {
+    this.editorContent = value
+  }
+
+  /**
+   * When log comes in from the iframe.
+   */
+
+  @action
+  pushMessage = (message) => {
+    this.logs.push(message.log)
+  }
+
+  /**
+   * When the iFrame mounts.
+   */
+
+  @action
+  runSandbox = () => {
+    this.clearLogs()
+    this.iFrame.current.contentWindow.Hook = Hook
+    this.iFrame.current.contentWindow.Decode = Decode
+    this.iFrame.current.contentWindow.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        this.iFrame.current.contentWindow.postMessage(
+          { eval: this.editorContent },
+          '*'
+        )
+      }
+    )
+  }
+
+  render() {
     return (
       <div styleName="Module">
-        <p>write your mo' fuckin code</p>
-        <CodeEditor
-          iFrame={this.iFrame}
-          onChange={store.setEditorContent}
-          content={store.editorContent}
-        />
-        <Button onClick={store.eval}>Run</Button>{' '}
-        <Button onClick={store.resetSandbox}>Stop</Button>
-        <CodeSandbox iFrame={this.iFrame} />
-        <Console messages={store.messages} />
+        <SplitPane
+          allowResize
+          styleName="SplitPane"
+          split="horizontal"
+          minSize={500}
+        >
+          <CodeEditor
+            iFrame={this.iFrame}
+            onChange={this.setEditorContent}
+            content={this.editorContent}
+          />
+          <SplitPane split="horizontal">
+            <div>
+              <Button onClick={this.startSandbox}>Run</Button>{' '}
+              <Button onClick={this.stopSandbox}>Stop</Button>{' '}
+              <Button onClick={this.resetSandbox}>Reset</Button>{' '}
+            </div>
+            <Console logs={toJS(this.logs)} />
+          </SplitPane>
+        </SplitPane>
+        <If condition={this.sandboxReadyState}>
+          <CodeSandbox iFrame={this.iFrame} didMount={this.runSandbox} />
+        </If>
       </div>
     )
   }
 }
 
-@observer
-class Console extends React.Component {
-  render() {
-    const { props } = this
-    return (
-      <section styleName="Console">
-        <h3>console</h3>
-        <div styleName="Logs">
-          <For each="log" of={props.messages}>
-            <For each="message" of={log.messages}>
-              <Log
-                key={JSON.stringify(message + Math.random(99))}
-                type={log.logType}
-                message={message}
-                timeStamp={log.timeStamp}
-              />
-            </For>
-          </For>
-        </div>
-      </section>
-    )
-  }
-}
-
-class Log extends React.Component {
-  render() {
-    const { props } = this
-    return (
-      <pre styleName={`Log pre ${props.type}`}>
-        <code>
-          <If condition={props.type === 'log' && props.message === 'DONE'}>
-            <span styleName="doneTimeStamp">
-              [ <TimeAgo date={props.timeStamp} /> ]
-            </span>
-          </If>{' '}
-          {JSON.stringify(props.message)}
-        </code>
-      </pre>
-    )
-  }
-}
-
 class CodeSandbox extends React.Component {
+  componentDidMount() {
+    this.props.didMount()
+  }
+
   render() {
     return (
       <iframe
@@ -118,26 +164,3 @@ class CodeSandbox extends React.Component {
     )
   }
 }
-
-// console.log('yolo')
-// console.warn('uh oh')
-// console.error('oh fuck')
-
-
-// write shit here
-// console.error('fuck it')
-
-// const tick = (() => {
-// 	let t = 0
-  
-//   return () => (t++)
-// })()
-
-// const foo = new Promise((resolve, reject) => {
-// 	let interval = setInterval(() => {
-//     let t = tick()
-//   	console.warn('tick tock')
-    
-//     t > 10 && clearInterval(interval)
-//   }, 2000)
-// })

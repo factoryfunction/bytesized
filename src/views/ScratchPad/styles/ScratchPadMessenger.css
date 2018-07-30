@@ -1,0 +1,7 @@
+.topPanel {
+  display: flex;
+  flex-direction: column;
+  background: rgb(7, 4, 5);
+  height: 100%;
+  width: 100%;
+}
