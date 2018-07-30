@@ -1,4 +1,6 @@
 .Module {
+  position: relative;
+  height: calc(100vh - 60px);
 }
 
 .Console {
@@ -42,4 +44,26 @@
 
 .doneTimeStamp {
   opacity: 0.25;
+}
+
+div[data-method] [data-type] span {
+  font-family: 'Dank Mono', monospace !important;
+  font-sie: 15px !important;
+}
+
+div[data-method] {
+  color: #000;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+div[data-method] * {
+  line-height: 1.5;
+}
+
+.SplitPane {
+  /* height: calc(100% - 60px);
+  max-height: calc(100% - 60px);
+  bottom: 0; */
 }

@@ -1,6 +1,6 @@
 export const handleSandboxMessages = (handler) => {
   return window.addEventListener('message', (event) => {
-    if (event.data.fromSandbox) handler(event.data)
+    if (event.data.source === 'sandbox') handler(event.data)
   })
 }
 

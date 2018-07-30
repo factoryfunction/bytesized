@@ -1,0 +1,23 @@
+.ConsoleTable {
+  margin: 12px;
+}
+
+.nonPrimitive {
+  font-family: 'Dank Mono', 'Operator Mono', monospace;
+}
+
+.primitive {
+  color: blue;
+}
+
+.Log {
+  width: 95%;
+  height: 100%;
+  position: relative;
+}
+
+.logTile {
+  min-height: 36px;
+  padding: 12px;
+  max-height: 42px;
+}
