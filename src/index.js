@@ -8,7 +8,7 @@ import UserStore from './stores/UserStore'
 
 import './index.css'
 
-const userStore = new UserStore
+const userStore = new UserStore()
 
 ReactDOM.render(
   <Provider userStore={userStore}>
