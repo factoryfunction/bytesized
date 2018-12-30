@@ -2,7 +2,7 @@ import { observable, action, computed } from 'mobx'
 import { ComponentStore } from 'ComponentStore'
 
 const DEFAULT_EDITOR_VALUE =
-  "\nsetInterval(() => { \n\tconsole.warn('shit') \n }, 2000) \n"
+  "\nsetInterval(() => { \n\tconsole.warn('dev') \n }, 2000) \n"
 
 const DEFAULT_WORKER_OPTIONS = {
   timeout: 7500
