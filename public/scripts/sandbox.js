@@ -14165,7 +14165,6 @@
 	//     })
 	//   })
 	//   Promise.all(finalArgs).then((values) => {
-	//     self.__console.log('done with that shit:', { values, finalArgs })
 	//     self.postMessage({ type, args: values })
 	//   })
 	// }

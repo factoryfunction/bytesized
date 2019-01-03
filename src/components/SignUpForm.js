@@ -32,8 +32,8 @@ class SignUpFormStore extends ComponentStore {
       modules: [
         {
           title: 'Some Module',
-          lessonContent: '# Some Module\n\n_Write shit here._',
-          editorContent: '// write code shit here'
+          lessonContent: '# Some Module\n\n_Write code here._',
+          editorContent: '// write code here'
         }
       ]
     })
@@ -55,7 +55,7 @@ export default class SignUpForm extends React.Component {
 
     return (
       <section styleName="SignUpForm">
-        <p>Sign up, bitch.</p>
+        <p>Sign up.</p>
         <form styleName="form" onSubmit={store.submit}>
           <Input
             type="email"
